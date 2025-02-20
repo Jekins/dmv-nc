@@ -1,4 +1,3 @@
-import React from 'react';
 import { RightOutlined } from '@ant-design/icons';
 import { AnswerButton } from '../../styles';
 

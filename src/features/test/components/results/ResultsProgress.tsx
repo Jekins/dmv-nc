@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, Progress } from 'antd';
 
 interface ResultsProgressProps {

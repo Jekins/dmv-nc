@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Layout } from 'antd';
 import { Menu } from '../Menu';
 import { StyledLayout, StyledHeader, StyledContent } from './styles';
 import { Test } from '@/features/test';

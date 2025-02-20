@@ -1,4 +1,3 @@
-import React from 'react';
 import { Typography } from 'antd';
 import { TestResult } from '../../types';
 import { StyledCard, FullWidthSpace } from '../../styles';

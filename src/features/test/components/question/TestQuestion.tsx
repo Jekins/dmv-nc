@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Space } from 'antd';
+import { Typography } from 'antd';
 import { Question } from '../../types';
 import { StyledCard, FullWidthSpace } from '../../styles';
 import { QuestionProgress } from './QuestionProgress';

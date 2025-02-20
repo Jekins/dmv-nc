@@ -1,4 +1,3 @@
-import React from 'react';
 import { Typography } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { TestResult } from '../../types';

@@ -18,29 +18,29 @@ export const AnswerOption: React.FC<AnswerOptionProps> = ({
 }) => {
     const answer = question.answers[option];
 
-    const getButtonType = () => {
-        if (!isAnswered) return isSelected ? 'primary' : 'default';
-
-        if (answer === question.correctAnswer) return 'success';
-        if (isSelected) return 'error';
-        return 'default';
-    };
-
     const getButtonStyle = () => {
         if (!isAnswered) return {};
 
         if (answer === question.correctAnswer) {
-            return { backgroundColor: '#f6ffed', borderColor: '#b7eb8f' };
+            return {
+                backgroundColor: '#f6ffed',
+                borderColor: '#b7eb8f',
+                color: '#52c41a',
+            };
         }
-        if (isSelected && answer !== question.correctAnswer) {
-            return { backgroundColor: '#fff1f0', borderColor: '#ffa39e' };
+        if (isSelected) {
+            return {
+                backgroundColor: '#fff1f0',
+                borderColor: '#ffa39e',
+                color: '#ff4d4f',
+            };
         }
         return {};
     };
 
     return (
         <Button
-            type={getButtonType()}
+            type={isSelected && !isAnswered ? 'primary' : 'default'}
             style={getButtonStyle()}
             onClick={() => !isAnswered && answer && onAnswerSelect(answer)}
             block

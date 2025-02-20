@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Menu as AntMenu } from 'antd';
 import { StyledMenu } from './styles';
 import { useNavigate } from 'react-router-dom';
 
