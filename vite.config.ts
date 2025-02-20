@@ -18,4 +18,5 @@ export default defineConfig({
     sourcemap: true,
   },
   base: '/dmv-nc/',
+  publicDir: 'public',
 }); 

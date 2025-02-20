@@ -5,27 +5,29 @@ import { AnswerOption } from './AnswerOption';
 
 interface AnswersListProps {
     question: Question;
-    isAnswered: boolean;
     selectedAnswer: string | null;
-    onSelect: (answer: string) => void;
+    isAnswered: boolean;
+    onAnswerSelect: (answer: string) => void;
 }
 
-export const AnswersList = ({
+export const AnswersList: React.FC<AnswersListProps> = ({
     question,
-    isAnswered,
     selectedAnswer,
-    onSelect,
-}: AnswersListProps) => (
-    <Space direction='vertical' className='full-width'>
-        {(['optionA', 'optionB', 'optionC', 'optionD'] as const).map((option) => (
-            <AnswerOption
-                key={option}
-                option={option}
-                question={question}
-                isAnswered={isAnswered}
-                selectedAnswer={selectedAnswer}
-                onSelect={onSelect}
-            />
-        ))}
-    </Space>
-);
+    isAnswered,
+    onAnswerSelect,
+}) => {
+    return (
+        <Space direction='vertical' style={{ width: '100%' }}>
+            {question.answers.map((answer, index) => (
+                <AnswerOption
+                    key={index}
+                    question={question}
+                    option={index}
+                    isSelected={selectedAnswer === answer}
+                    isAnswered={isAnswered}
+                    onAnswerSelect={onAnswerSelect}
+                />
+            ))}
+        </Space>
+    );
+};

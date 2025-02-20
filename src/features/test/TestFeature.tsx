@@ -32,7 +32,6 @@ export const TestFeature: React.FC<{ testNumber: number }> = ({ testNumber }) =>
             question={state.questions[state.currentQuestionIndex]}
             questionNumber={state.currentQuestionIndex + 1}
             totalQuestions={state.questions.length}
-            isAnswered={Boolean(state.selectedAnswer)}
             selectedAnswer={state.selectedAnswer}
             onAnswerSelect={handleAnswerSelect}
             onNext={handleNextQuestion}

@@ -1,5 +1,5 @@
 import 'styled-components';
-import { GlobalToken } from 'antd/es/theme/interface';
+import type { GlobalToken } from 'antd/es/theme';
 
 declare module 'styled-components' {
     export interface DefaultTheme {

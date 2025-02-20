@@ -1,43 +1,52 @@
-import React from 'react';
+import { Button } from 'antd';
 import { Question } from '../../types';
-import { AnswerButton } from '../../styles';
 
 interface AnswerOptionProps {
-    option: keyof Question;
     question: Question;
+    option: number;
+    isSelected: boolean;
     isAnswered: boolean;
-    selectedAnswer: string | null;
-    onSelect: (answer: string) => void;
+    onAnswerSelect: (answer: string) => void;
 }
 
-export const AnswerOption = ({
-    option,
+export const AnswerOption: React.FC<AnswerOptionProps> = ({
     question,
+    option,
+    isSelected,
     isAnswered,
-    selectedAnswer,
-    onSelect,
-}: AnswerOptionProps) => {
-    const getOptionStyle = () => {
+    onAnswerSelect,
+}) => {
+    const answer = question.answers[option];
+
+    const getButtonType = () => {
+        if (!isAnswered) return isSelected ? 'primary' : 'default';
+
+        if (answer === question.correctAnswer) return 'success';
+        if (isSelected) return 'error';
+        return 'default';
+    };
+
+    const getButtonStyle = () => {
         if (!isAnswered) return {};
 
-        if (question[option] === question.correctAnswer) {
+        if (answer === question.correctAnswer) {
             return { backgroundColor: '#f6ffed', borderColor: '#b7eb8f' };
         }
-
-        if (question[option] === selectedAnswer && question[option] !== question.correctAnswer) {
+        if (isSelected && answer !== question.correctAnswer) {
             return { backgroundColor: '#fff1f0', borderColor: '#ffa39e' };
         }
-
         return {};
     };
 
     return (
-        <AnswerButton
-            style={getOptionStyle()}
-            onClick={() => onSelect(question[option])}
+        <Button
+            type={getButtonType()}
+            style={getButtonStyle()}
+            onClick={() => !isAnswered && answer && onAnswerSelect(answer)}
+            block
             disabled={isAnswered}
         >
-            {question[option]}
-        </AnswerButton>
+            {answer}
+        </Button>
     );
 };

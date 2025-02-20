@@ -7,13 +7,11 @@ import { BrowserRouter } from 'react-router-dom';
 export function App() {
     return (
         <BrowserRouter basename='/dmv-nc'>
-            <ConfigProvider>
-                <AppProvider>
-                    <MainLayout>
-                        <Test testNumber={1} />
-                    </MainLayout>
-                </AppProvider>
-            </ConfigProvider>
+            <AppProvider>
+                <MainLayout>
+                    <Test testNumber={1} />
+                </MainLayout>
+            </AppProvider>
         </BrowserRouter>
     );
 }

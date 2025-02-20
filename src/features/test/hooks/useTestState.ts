@@ -22,11 +22,17 @@ export const useTestState = (testId: string) => {
             try {
                 setIsLoading(true);
                 const data = await fetchTestData(testId);
-                setState((prev) => ({
-                    ...prev,
-                    questions: data.questions,
-                }));
-                setTestData(data);
+                if (data && Array.isArray(data)) {
+                    setState((prev) => ({
+                        ...prev,
+                        questions: data,
+                    }));
+                    setTestData({
+                        questions: data,
+                        id: testId,
+                        title: `Test ${testId}`,
+                    });
+                }
                 setError(null);
             } catch (err) {
                 setError(err instanceof Error ? err : new Error('Unknown error'));

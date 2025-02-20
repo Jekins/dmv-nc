@@ -12,37 +12,39 @@ interface TestQuestionProps {
     question: Question;
     questionNumber: number;
     totalQuestions: number;
-    isAnswered: boolean;
     selectedAnswer: string | null;
     onAnswerSelect: (answer: string) => void;
     onNext: () => void;
 }
 
-export const TestQuestion = ({
+export const TestQuestion: React.FC<TestQuestionProps> = ({
     question,
     questionNumber,
     totalQuestions,
-    isAnswered,
     selectedAnswer,
     onAnswerSelect,
     onNext,
-}: TestQuestionProps) => (
-    <StyledCard>
-        <FullWidthSpace direction='vertical' size='middle'>
-            <QuestionProgress current={questionNumber} total={totalQuestions} />
+}) => {
+    const isAnswered = selectedAnswer !== null;
 
-            <Title level={4} className='text-center question-title'>
-                {question.question}
-            </Title>
+    return (
+        <StyledCard>
+            <FullWidthSpace direction='vertical' size='middle'>
+                <QuestionProgress current={questionNumber} total={totalQuestions} />
 
-            <AnswersList
-                question={question}
-                isAnswered={isAnswered}
-                selectedAnswer={selectedAnswer}
-                onSelect={onAnswerSelect}
-            />
+                <Title level={4} className='text-center question-title'>
+                    {question.question}
+                </Title>
 
-            {isAnswered && <NextQuestionButton onClick={onNext} />}
-        </FullWidthSpace>
-    </StyledCard>
-);
+                <AnswersList
+                    question={question}
+                    selectedAnswer={selectedAnswer}
+                    isAnswered={isAnswered}
+                    onAnswerSelect={onAnswerSelect}
+                />
+
+                {isAnswered && <NextQuestionButton onClick={onNext} />}
+            </FullWidthSpace>
+        </StyledCard>
+    );
+};
