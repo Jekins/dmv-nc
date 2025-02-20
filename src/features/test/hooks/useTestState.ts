@@ -1,16 +1,18 @@
 import { useState, useCallback, useEffect } from 'react';
-import { TestState, Question } from '../types';
+import { TestState, Question, TestData, TestResult } from '../types';
 import { fetchTestData } from '../api/testApi';
 
-export const useTestState = (testId: string) => {
-    const [state, setState] = useState<TestState>({
-        questions: [],
-        currentQuestionIndex: 0,
-        selectedAnswer: null,
-        isAnswered: false,
-        results: [],
-    });
+const initialState: TestState = {
+    questions: [],
+    currentQuestionIndex: 0,
+    selectedAnswer: null,
+    answers: {},
+    isComplete: false,
+    results: [],
+};
 
+export const useTestState = (testId: string) => {
+    const [state, setState] = useState<TestState>(initialState);
     const [testData, setTestData] = useState<TestData | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
@@ -20,6 +22,10 @@ export const useTestState = (testId: string) => {
             try {
                 setIsLoading(true);
                 const data = await fetchTestData(testId);
+                setState((prev) => ({
+                    ...prev,
+                    questions: data.questions,
+                }));
                 setTestData(data);
                 setError(null);
             } catch (err) {
@@ -38,7 +44,7 @@ export const useTestState = (testId: string) => {
 
     const handleAnswerSelect = useCallback(
         (answer: string) => {
-            if (state.isAnswered) return;
+            if (state.isComplete) return;
 
             const currentQuestion = state.questions[state.currentQuestionIndex];
             const isCorrect = answer === currentQuestion.correctAnswer;
@@ -46,18 +52,24 @@ export const useTestState = (testId: string) => {
             setState((prev) => ({
                 ...prev,
                 selectedAnswer: answer,
-                isAnswered: true,
+                answers: {
+                    ...prev.answers,
+                    [currentQuestion.id]: answer,
+                },
                 results: [
-                    ...prev.results,
+                    ...(prev.results || []),
                     {
-                        question: currentQuestion,
+                        questionId: currentQuestion.id,
+                        question: currentQuestion.question,
                         userAnswer: answer,
+                        correctAnswer: currentQuestion.correctAnswer,
                         isCorrect,
-                    },
+                        explanation: currentQuestion.explanation,
+                    } as TestResult,
                 ],
             }));
         },
-        [state.isAnswered, state.questions, state.currentQuestionIndex]
+        [state.isComplete, state.questions, state.currentQuestionIndex]
     );
 
     const handleNextQuestion = useCallback(() => {
@@ -65,7 +77,6 @@ export const useTestState = (testId: string) => {
             ...prev,
             currentQuestionIndex: prev.currentQuestionIndex + 1,
             selectedAnswer: null,
-            isAnswered: false,
         }));
     }, []);
 

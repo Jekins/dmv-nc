@@ -3,12 +3,10 @@ import { useTestState } from './hooks/useTestState';
 import { fetchTestQuestions } from './api/testApi';
 import { LoadingState, TestQuestion, TestResults } from './components';
 
-interface TestFeatureProps {
-    testNumber: number;
-}
-
-export const TestFeature = ({ testNumber }: TestFeatureProps) => {
-    const { state, setQuestions, handleAnswerSelect, handleNextQuestion } = useTestState();
+export const TestFeature: React.FC<{ testNumber: number }> = ({ testNumber }) => {
+    const { state, setQuestions, handleAnswerSelect, handleNextQuestion } = useTestState(
+        testNumber.toString()
+    );
 
     useEffect(() => {
         const loadQuestions = async () => {
@@ -24,7 +22,9 @@ export const TestFeature = ({ testNumber }: TestFeatureProps) => {
     }
 
     if (state.currentQuestionIndex >= state.questions.length) {
-        return <TestResults results={state.results} totalQuestions={state.questions.length} />;
+        return (
+            <TestResults results={state.results || []} totalQuestions={state.questions.length} />
+        );
     }
 
     return (
@@ -32,7 +32,7 @@ export const TestFeature = ({ testNumber }: TestFeatureProps) => {
             question={state.questions[state.currentQuestionIndex]}
             questionNumber={state.currentQuestionIndex + 1}
             totalQuestions={state.questions.length}
-            isAnswered={state.isAnswered}
+            isAnswered={Boolean(state.selectedAnswer)}
             selectedAnswer={state.selectedAnswer}
             onAnswerSelect={handleAnswerSelect}
             onNext={handleNextQuestion}
