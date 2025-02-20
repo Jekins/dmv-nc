@@ -1,0 +1,6 @@
+node_modules
+.env
+
+# Include CSV files
+!public/data/*.csv
+
