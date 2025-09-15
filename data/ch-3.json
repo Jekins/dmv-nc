@@ -1,0 +1,48 @@
+{
+  "chapter": {
+    "ru": "Глава 3 — Ваше право на вождение",
+    "en": "Chapter 3 — Your Driving Privilege"
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "question": {
+        "ru": "При каком количестве начисленных баллов водитель может быть направлен на курс улучшения вождения (driver improvement clinic)?",
+        "en": "At what point total may a driver be assigned to a driver improvement clinic?"
+      },
+      "options": {
+        "A": { "ru": "5 баллов", "en": "5 points" },
+        "B": { "ru": "7 баллов", "en": "7 points" },
+        "C": { "ru": "8 баллов", "en": "8 points" },
+        "D": { "ru": "12 баллов", "en": "12 points" }
+      },
+      "answer": {
+        "key": "B",
+        "description": {
+          "ru": "Назначение на курс возможно при накоплении 7 баллов; после успешного прохождения снимается 3 балла.",
+          "en": "Assignment may occur at 7 points; upon satisfactory completion, 3 points are deducted."
+        }
+      }
+    },
+    {
+      "id": "q2",
+      "question": {
+        "ru": "Какой максимальный уровень алкоголя (BAC) разрешен для водителя в возрасте 21 года и старше?",
+        "en": "What is the maximum legal BAC for drivers 21 and older?"
+      },
+      "options": {
+        "A": { "ru": "0.02%", "en": "0.02%" },
+        "B": { "ru": "0.05%", "en": "0.05%" },
+        "C": { "ru": "0.08%", "en": "0.08%" },
+        "D": { "ru": "0.10%", "en": "0.10%" }
+      },
+      "answer": {
+        "key": "C",
+        "description": {
+          "ru": "Уровень BAC 0.08% является законным пределом.",
+          "en": "A BAC of 0.08% is the legal limit."
+        }
+      }
+    }
+  ]
+}
