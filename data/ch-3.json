@@ -23,6 +23,26 @@
           "en": "Assignment may occur at 7 points; upon satisfactory completion, 3 points are deducted."
         }
       }
+    },
+    {
+      "id": "q2",
+      "question": {
+        "ru": "Какой максимальный уровень алкоголя (BAC) разрешен для водителя в возрасте 21 года и старше?",
+        "en": "What is the maximum legal BAC for drivers 21 and older?"
+      },
+      "options": {
+        "A": { "ru": "0.02%", "en": "0.02%" },
+        "B": { "ru": "0.05%", "en": "0.05%" },
+        "C": { "ru": "0.08%", "en": "0.08%" },
+        "D": { "ru": "0.10%", "en": "0.10%" }
+      },
+      "answer": {
+        "key": "C",
+        "description": {
+          "ru": "Уровень BAC 0.08% является законным пределом.",
+          "en": "A BAC of 0.08% is the legal limit."
+        }
+      }
     }
   ]
 }

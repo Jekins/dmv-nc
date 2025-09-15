@@ -4,6 +4,8 @@ import { useAtom } from 'jotai';
 import { attemptsAtom } from '../state/attempts';
 import { useT } from '../utils/i18n';
 import { isPassed } from '../utils/score';
+import Celebration from '../components/Celebration';
+import { useEffect, useState } from 'react';
 
 export default function ResultsPage() {
   const { id } = useParams();
@@ -12,14 +14,19 @@ export default function ResultsPage() {
   const attempt = id ? attempts[id] : undefined;
   const t = useT();
   const navigate = useNavigate();
+  const [showCongrats, setShowCongrats] = useState(false);
+  const pass = attempt
+    ? isPassed(attempt.correctCount, section?.questions.length || 0)
+    : false;
+  useEffect(() => {
+    if (pass) setShowCongrats(true);
+  }, [pass]);
 
   if (!section || !id || !attempt) return <div className="p-4">Not found</div>;
   if (attempt.status !== 'finished') {
     navigate(`/section/${id}`);
     return null;
   }
-
-  const pass = isPassed(attempt.correctCount, section.questions.length);
 
   const retry = () => {
     if (!id) return;
@@ -87,6 +94,9 @@ export default function ResultsPage() {
           );
         })}
       </ul>
+      {showCongrats && pass && (
+        <Celebration onClose={() => setShowCongrats(false)} />
+      )}
     </div>
   );
 }

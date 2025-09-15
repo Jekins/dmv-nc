@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { getDefaultStore } from 'jotai';
 import { attemptsAtom, type SectionAttempt } from '../src/state/attempts';
 
@@ -15,6 +15,7 @@ const sampleAttempt: SectionAttempt = {
 describe('attempts storage', () => {
   beforeEach(() => {
     localStorage.clear();
+    vi.resetModules();
   });
 
   it('persists attempts to localStorage', () => {

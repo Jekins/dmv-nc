@@ -46,7 +46,7 @@ export default function SectionPage() {
   }
 
   const firstUnanswered = attempt.shuffledQuestionIds.findIndex(
-    (qid) => !attempt.questions[qid],
+    (qid: string) => !attempt.questions[qid],
   );
 
   if (attempt.status === 'finished') {
@@ -83,10 +83,10 @@ export default function SectionPage() {
     setAttempts((prev) => {
       const a = prev[id];
       const questions = { ...a.questions, [currentId]: qa };
-      const correctCount = Object.values(questions).filter(
+      const correctCount = Object.values<QuestionAttempt>(questions).filter(
         (q) => q.isCorrect,
       ).length;
-      const wrongCount = Object.values(questions).filter(
+      const wrongCount = Object.values<QuestionAttempt>(questions).filter(
         (q) => !q.isCorrect,
       ).length;
       const done = correctCount + wrongCount === a.shuffledQuestionIds.length;
@@ -110,10 +110,26 @@ export default function SectionPage() {
 
   const answered = attempt.questions[currentId];
 
+  const progress = (currentIndex / attempt.shuffledQuestionIds.length) * 100;
+
   return (
     <div className="p-4 space-y-4">
-      <div className="text-sm">
-        {currentIndex + 1} / {attempt.shuffledQuestionIds.length}
+      <div className="flex justify-between items-center">
+        <button
+          onClick={() => navigate('/')}
+          className="px-4 py-2 bg-blue-500 text-white rounded"
+        >
+          Home
+        </button>
+        <div className="text-sm">
+          {currentIndex + 1} / {attempt.shuffledQuestionIds.length}
+        </div>
+      </div>
+      <div className="h-2 bg-gray-200 rounded">
+        <div
+          className="h-2 bg-blue-500 rounded"
+          style={{ width: `${progress}%` }}
+        />
       </div>
       <h2 className="font-semibold">{t(question.question)}</h2>
       <form onSubmit={submit} className="space-y-2">
